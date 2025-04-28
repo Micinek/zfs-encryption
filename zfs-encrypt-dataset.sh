@@ -17,8 +17,6 @@
 #          CRITICAL to back up the key securely.
 #
 
-clear
-
 print_logo() {
 cat << "EOF"
 ______________________________ ________      _____________________    _______________________________ ___________ _______  ______________.___._______________________________.___________    _______   
@@ -52,6 +50,7 @@ validate_dataset_name() {
     return 0
 }
 
+clear && print_logo
 # Main script execution
 echo "Available ZFS Pools:"
 list_zfs_pools
@@ -62,9 +61,11 @@ if ! list_zfs_pools | grep -q "^$selected_pool\$"; then
     exit 1
 fi
 
+clear && print_logo
 read -p "Enter name for new encrypted dataset: " dataset_name
 validate_dataset_name "$dataset_name" || exit 1
 
+clear && print_logo
 read -p "Are you sure you want to create the dataset '$dataset_name' on pool '$selected_pool'? (y/n): " confirmation
 if [[ "$confirmation" != "y" ]]; then
     echo "Operation cancelled."
